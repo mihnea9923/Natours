@@ -4,14 +4,26 @@
   "description": "landing page for natours",
   "main": "index.js",
   "scripts": {
-    "compile:sass": "node-sass sass/main.scss css/style.css -w"
+    "watch:sass": "node-sass sass/main.scss css/style.css -w",
+    "compile:sass": "node-sass sass/main.scss css/style.comp.css",
+    "devserver" : "live-server",
+    "start" : "npm-run-all --parallel devserver watch:sass",
+    "concat:css" : "concat -o css/style.concat.css css/1.css css/2.css",
+    "prefix:css": "postcss --use autoprefixer -b 'last 10 versions' css/style.comp.css -o css/style.prefix.css",
+    "compress:css": "node-sass css/style.comp.css css/style.css --output-style compressed",
+    "build:css" : "npm-run-all compile:sass compress:css"
+
   },
   "author": "Mihnea",
   "license": "ISC",
   "devDependencies": {
-    "node-sass": "^4.14.1"
+    "node-sass": "^4.14.1",
+    "npm-run-all": "^4.1.5",
+    "postcss-cli": "^7.1.2"
   },
   "dependencies": {
+    "autoprefixer": "^10.0.0",
+    "concat": "^1.0.3",
     "cookie": "^0.4.1",
     "jquery": "^3.5.1",
     "live": "^0.1.25-beta.0",
